@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+Hi,
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+for setting up the frontend,
+You have to git clone the repository
+and create a .env file
+and include the following in the .env file
+REACT_APP_API_BASE_URL=yyyyyyyyyy
 
-## Available Scripts
+replace the deployed backend endpoint in the place of yyyyyyyyyy
+now you can deploy it so that it would work
 
-In the project directory, you can run:
+for setting up the backend,
+You have to git clone the repository
+and create a .env file
+and include the following in the .env file
+DB_NAME=yyyyyyyyyy
+DB_USER=yyyyyyyyyy
+DB_PASS=yyyyyyyyyy
+DB_HOST=yyyyyyyyyy
 
-### `npm start`
+replace the actual database values in the place of yyyyyyyyyy
+now you can deploy it so that it would work
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Now to use the frontend application,
+first you will be directed to a register page,
+you have to remember your email and password,
+because once successful registration, you will be directed to login page
+where you have to provide your email and password again. Once logged in
+you will be taken to the dashboard.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+you have to be careful while uploading xlsx or csv file.
+kindly follow the instruction mentioned there before uploading to avoid error
+Instructions for uploading
 
-### `npm test`
+- Kindly follow the exact excel header as shown below
+  title description effort due_date user_id
+  don't capitalise and only use the above headers
+- Input everything as strings including date
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Date should be in dd-mm-yyyy string format. eg: 22-08-2025 . And don't change the col type to date and let it be plain string
+  as backend will take care of it
 
-### `npm run build`
+  Common error fixing
+  In case you have difficulty registrating,
+  make sure you close the application and open it up again and use new email.
+  the email should contain @gmail.com at the end. if u still face errors of any kind try going to login page,
+  and input the email and password that u have entered in the registration page.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  if u face the above message
+  "Registration failed. Please try again. Also check that you're not using an already registered email.",
+  kindly try going to login page and login, following the login link found in the register page, as u might have already registered.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Technologies Used
+frontend:Reactjs
+backend:NodeJs
+Database:postgres
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Deployment:
+frontend:vercel
+backend:render
+database:render
 
-### `npm run eject`
+You could access the application using the following link
+https://task-management-frontend-cyan.vercel.app/
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can always contact me in case you have any difficulties or need further clarifications.

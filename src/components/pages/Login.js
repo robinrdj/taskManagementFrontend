@@ -8,9 +8,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(`${config.API_BASE_URL}/api/users/login`, {
         email,
@@ -23,6 +25,8 @@ const Login = () => {
       }
     } catch (err) {
       setError("Invalid credentials or server error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,7 +43,10 @@ const Login = () => {
             type="email"
             placeholder="Enter your email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError(null);
+            }}
           />
         </label>
 
@@ -49,15 +56,22 @@ const Login = () => {
             type="password"
             placeholder="Enter your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError(null);
+            }}
           />
         </label>
 
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin} disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
 
         <p className="register-text">
           New user?
-          <button onClick={() => navigate("/register")}>Register</button>
+          <button onClick={() => navigate("/register")} disabled={loading}>
+            Register
+          </button>
         </p>
       </div>
     </div>

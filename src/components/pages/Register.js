@@ -8,41 +8,37 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleRegister = async () => {
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
-
     if (!password.trim()) {
       setError("Password cannot be empty.");
       return;
     }
 
+    setLoading(true);
     try {
       const res = await axios.post(
         `${config.API_BASE_URL}/api/users/register`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
       alert(
         "Registration successful. You will be directed to the login page. Please use the same credentials to log in."
       );
-      console.log(res.data);
       navigate("/login");
     } catch (err) {
       setError(
         "Registration failed. Please try again. Also check that you're not using an already registered email."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,10 +73,14 @@ const Register = () => {
             }}
           />
         </label>
-        <button onClick={handleRegister}>Register</button>
+        <button onClick={handleRegister} disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
         <p className="login-text">
           Already have an account?
-          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => navigate("/login")} disabled={loading}>
+            Login
+          </button>
         </p>
       </div>
     </div>

@@ -5,9 +5,31 @@
   font-family: sans-serif;
 }
 
-.dashboard-title {
-  text-align: center;
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.dashboard-title {
+  margin: 0 auto;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.logout-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
 }
 
 .task-inputs {
@@ -75,14 +97,17 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .xcel-btn {
   background-color: #28a745;
   color: white;
 }
+
 .upload-btn {
   background-color: #007bff;
   color: white;
 }
+
 /* Update Modal Positioning */
 .update-modal {
   position: absolute;

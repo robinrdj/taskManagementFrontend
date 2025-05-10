@@ -4,6 +4,7 @@ import * as XLSX from "xlsx";
 import TaskTable from "../TaskTable";
 import "./Dashboard.css";
 import config from "../../config";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const [due_date, setdue_date] = useState("");
   const [user_id, setUser_id] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const isValidDate = (dateStr) => !isNaN(new Date(dateStr).getTime());
 
@@ -22,16 +24,21 @@ const Dashboard = () => {
     if (id) fetchTasks(parseInt(id));
   }, []);
 
-  //get
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    navigate("/login");
+  };
+
+  // get
   const fetchTasks = async (uid = user_id) => {
     if (uid) {
       const res = await axios.get(`${config.API_BASE_URL}/api/tasks/${uid}`);
       setTasks(res.data);
     }
   };
-  //create
+
+  // create
   const addTask = async () => {
-    // Input validations
     if (!title.trim()) {
       setError("Title cannot be empty.");
       return;
@@ -44,6 +51,7 @@ const Dashboard = () => {
       setError("Please enter a valid due date.");
       return;
     }
+
     const today = new Date();
     const due = new Date(due_date);
     const diffDays = Math.ceil((due - today) / (1000 * 60 * 60 * 24));
@@ -57,7 +65,7 @@ const Dashboard = () => {
       );
       return;
     }
-    // Clear error and submit
+
     setError("");
     await axios.post(`${config.API_BASE_URL}/api/tasks`, {
       title,
@@ -66,7 +74,7 @@ const Dashboard = () => {
       due_date,
       user_id,
     });
-    // Reset form
+
     setTitle("");
     setDescription("");
     setEffort(1);
@@ -74,17 +82,19 @@ const Dashboard = () => {
     fetchTasks();
   };
 
-  //delete
+  // delete
   const deleteTask = async (id) => {
     await axios.delete(`${config.API_BASE_URL}/api/tasks/${id}`);
     fetchTasks();
   };
-  //update
+
+  // update
   const updateTask = async (id, currentTask) => {
     await axios.put(`${config.API_BASE_URL}/api/tasks/${id}`, currentTask);
     fetchTasks();
   };
-  //export
+
+  // export
   const exportTasks = async () => {
     const res = await axios.get(
       `${config.API_BASE_URL}/api/tasks/export/${user_id}`,
@@ -97,7 +107,8 @@ const Dashboard = () => {
     document.body.appendChild(link);
     link.click();
   };
-  //import
+
+  // import
   const handleImport = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -108,7 +119,13 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h2 className="dashboard-title">Dashboard</h2>
+      <div className="dashboard-header">
+        <h2 className="dashboard-title">Dashboard</h2>
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+      </div>
+
       <h3>Add Task</h3>
       {error && (
         <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>
@@ -174,6 +191,7 @@ const Dashboard = () => {
         onChange={handleImport}
         className="xcel-actions-button upload-btn"
       />
+
       <div
         style={{
           border: "1px solid gray",
